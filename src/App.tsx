@@ -41,7 +41,7 @@ function App() {
                                 label="LINKEDIN"
                             />
                             <CFButton
-                                url="https://github.com/github-bdem/"
+                                url="https://github.com/xbdell/"
                                 label="GITHUB"
                                 variant="secondary"
                             />
