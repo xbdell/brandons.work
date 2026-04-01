@@ -8,47 +8,46 @@ interface ProjectSlideProps {
 
 function ProjectSlide({ index, project }: ProjectSlideProps) {
     return (
-        <div className="project-card group">
-            <div className="project-id">
+        <div className="border-base-300 relative overflow-hidden border bg-white">
+            <div className="text-technical-gray border-base-300 absolute top-4 right-4 border bg-white px-2 py-0.5 font-mono text-xs font-semibold tracking-widest">
                 {String(index + 1).padStart(3, "0")}
             </div>
-            
-            <div className="flex flex-col h-full">
+
+            <div className="flex h-full flex-col">
                 {/* Project Image/Placeholder */}
-                <div className="relative h-48 overflow-hidden bg-base-200 border-b border-base-300">
+                <div className="bg-base-200 border-base-300 relative h-48 overflow-hidden border-b">
                     {project.previewImageUrl ? (
                         <img
                             src={project.previewImageUrl}
                             alt={project.name}
-                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            className="h-full w-full object-cover"
                         />
                     ) : (
-                        <div className="flex items-center justify-center h-full bg-gradient-to-br from-base-200 to-base-300">
-                            <div className="text-6xl font-mono font-bold text-neutral opacity-20">
+                        <div className="from-base-200 to-base-300 flex h-full items-center justify-center bg-gradient-to-br">
+                            <div className="text-neutral font-mono text-6xl font-bold opacity-20">
                                 {project.name.charAt(0)}
                             </div>
                         </div>
                     )}
-                    
+
                     {/* Technical overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
 
                 {/* Project Content */}
-                <div className="flex flex-col flex-grow p-6">
+                <div className="flex flex-grow flex-col p-6">
                     <div className="mb-3">
-                        <h3 className="project-title">
+                        <h3 className="font-sans text-lg font-bold tracking-tight text-black uppercase">
                             {project.name}
                         </h3>
                     </div>
-                    
-                    <p className="project-description mb-6 flex-grow">
+
+                    <p className="text-technical-gray mb-6 flex-grow text-sm leading-relaxed font-normal">
                         {project.description}
                     </p>
-                    
+
                     {/* Technical divider */}
-                    <div className="technical-divider mb-4"></div>
-                    
+                    <div className="bg-border my-8 h-px w-full"></div>
+
                     {/* Action buttons */}
                     <div className="flex flex-col gap-3">
                         {project.liveLink && (
