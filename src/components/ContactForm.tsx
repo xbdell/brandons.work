@@ -24,12 +24,10 @@ function ContactForm() {
     const generateMailtoLink = () => {
         const to = "bison_roost.9v@icloud.com";
 
-        // Create subject line
         const subjectText = formData.subject
             ? `${formData.subject} - Contact from ${formData.name}`
             : `Contact from ${formData.name}`;
 
-        // Create email body
         const bodyText = `
 Hi Brandon,
 
@@ -44,7 +42,6 @@ Project Type: ${formData.subject || "Not specified"}
 Sent from brandons.work contact form
         `.trim();
 
-        // Encode the subject and body for URL
         const encodedSubject = encodeURIComponent(subjectText);
         const encodedBody = encodeURIComponent(bodyText);
 
@@ -57,15 +54,21 @@ Sent from brandons.work contact form
         formData.email.trim() &&
         formData.message.trim();
 
+    const fieldClasses =
+        "w-full border border-zinc-200 bg-white text-black text-sm px-4 py-3 rounded-none placeholder:text-zinc-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black focus:bg-zinc-50";
+
+    const labelClasses =
+        "font-mono text-xs font-semibold tracking-widest uppercase text-black mb-1";
+
     return (
-        <div className="card mx-auto max-w-2xl p-8">
+        <div className="mx-auto max-w-2xl rounded-none border border-zinc-200 bg-white p-8">
             <div className="mb-8">
                 <div className="mb-2">
-                    <h3 className="text-primary text-2xl font-bold">
+                    <h3 className="text-2xl font-bold text-black">
                         GET IN TOUCH
                     </h3>
                 </div>
-                <p className="project-description">
+                <p className="text-sm leading-relaxed text-zinc-500">
                     {`Ready to collaborate on your next project? Let's discuss how we can bring your ideas to life.`}
                 </p>
             </div>
@@ -73,8 +76,8 @@ Sent from brandons.work contact form
             <div className="space-y-6">
                 {/* Name and Email Row */}
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                    <div className="form-field">
-                        <label htmlFor="name" className="form-label">
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="name" className={labelClasses}>
                             NAME *
                         </label>
                         <input
@@ -84,13 +87,13 @@ Sent from brandons.work contact form
                             value={formData.name}
                             onChange={handleChange}
                             required
-                            className="form-input"
+                            className={fieldClasses}
                             placeholder="Your full name"
                         />
                     </div>
 
-                    <div className="form-field">
-                        <label htmlFor="email" className="form-label">
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="email" className={labelClasses}>
                             EMAIL *
                         </label>
                         <input
@@ -100,15 +103,15 @@ Sent from brandons.work contact form
                             value={formData.email}
                             onChange={handleChange}
                             required
-                            className="form-input"
+                            className={fieldClasses}
                             placeholder="your@email.com"
                         />
                     </div>
                 </div>
 
                 {/* Subject */}
-                <div className="form-field">
-                    <label htmlFor="subject" className="form-label">
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="subject" className={labelClasses}>
                         PROJECT TYPE
                     </label>
                     <select
@@ -116,7 +119,7 @@ Sent from brandons.work contact form
                         name="subject"
                         value={formData.subject}
                         onChange={handleChange}
-                        className="form-select"
+                        className={fieldClasses}
                     >
                         <option value="">Select project type</option>
                         <option value="Web Development">Web Development</option>
@@ -132,8 +135,8 @@ Sent from brandons.work contact form
                 </div>
 
                 {/* Message */}
-                <div className="form-field">
-                    <label htmlFor="message" className="form-label">
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="message" className={labelClasses}>
                         MESSAGE *
                     </label>
                     <textarea
@@ -143,21 +146,19 @@ Sent from brandons.work contact form
                         onChange={handleChange}
                         required
                         rows={6}
-                        className="form-textarea"
+                        className={`${fieldClasses} min-h-[120px] resize-y leading-relaxed`}
                         placeholder="Tell me about your project, timeline, and requirements..."
                     />
                 </div>
 
                 {/* Technical divider */}
-                <div className="technical-divider"></div>
+                <div className="my-8 h-px w-full bg-zinc-200"></div>
 
                 {/* Submit section */}
                 <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
                     <div className="flex items-center gap-3">
-                        <div
-                            className={`technical-indicator ${isFormValid ? "active" : ""}`}
-                        ></div>
-                        <span className="text-neutral font-mono text-xs">
+                        <div className="relative block h-2 w-2 bg-blue-500"></div>
+                        <span className="font-mono text-xs text-zinc-500">
                             {isFormValid
                                 ? "READY.TO.SEND"
                                 : "COMPLETE.REQUIRED.FIELDS"}
@@ -166,7 +167,7 @@ Sent from brandons.work contact form
 
                     <a
                         href={generateMailtoLink()}
-                        className={`btn btn-primary ${!isFormValid ? "pointer-events-none opacity-50" : ""}`}
+                        className={`cursor-pointer rounded-none border border-black bg-black px-6 py-3 font-sans text-sm font-semibold uppercase tracking-wide text-white transition-all duration-200 hover:-translate-y-px hover:border-zinc-500 hover:bg-zinc-500 hover:shadow-md ${!isFormValid ? "pointer-events-none opacity-50" : ""}`}
                         aria-disabled={!isFormValid}
                     >
                         SEND MESSAGE
@@ -174,26 +175,14 @@ Sent from brandons.work contact form
                 </div>
 
                 {/* Info message */}
-                <div
-                    className="form-status"
-                    style={{
-                        borderColor: "var(--color-technical-blue)",
-                        background: "rgba(59, 130, 246, 0.05)",
-                        color: "var(--color-technical-blue)",
-                    }}
-                >
+                <div className="mt-4 border border-blue-500 bg-blue-500/5 p-4 text-blue-500">
                     <div className="flex items-center gap-2">
-                        <div
-                            className="technical-indicator"
-                            style={{
-                                background: "var(--color-technical-blue)",
-                            }}
-                        ></div>
+                        <div className="relative block h-2 w-2 bg-blue-500"></div>
                         <span className="font-semibold">
                             Email client integration
                         </span>
                     </div>
-                    <p className="text-neutral mt-1 pb-4 text-sm">
+                    <p className="mt-1 pb-4 text-sm text-zinc-500">
                         {`Clicking "Send Message" will open your default email
                         client with the message pre-filled. If you do not have an email client installed, please click the button below to copy the contact email to your clipboard.`}
                     </p>
@@ -203,7 +192,7 @@ Sent from brandons.work contact form
                                 .writeText("bison_roost.9v@icloud.com")
                                 .catch(() => null);
                         }}
-                        className="btn btn-secondary"
+                        className="cursor-pointer rounded-none border border-blue-500 bg-transparent px-6 py-3 font-sans text-sm font-semibold uppercase tracking-wide text-blue-500 transition-all duration-200 hover:-translate-y-px hover:bg-blue-500 hover:text-white hover:shadow-md"
                     >
                         Copy Email
                     </button>

@@ -1,8 +1,6 @@
-/* Import modern technical fonts */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
-/* Import custom DaisyUI overrides */
-@import "./daisy-overrides.css";
+@import "./animations.css";
 
 @plugin "daisyui" {
     themes:
@@ -10,37 +8,38 @@
         light,
         dark;
 }
-@plugin "daisyui/theme" {
-    name: "modern";
-    default: true;
-    prefersdark: false;
-    color-scheme: "light";
-    --color-base-100: #fafafa;
-    --color-base-200: #f4f4f5;
-    --color-base-300: #e4e4e7;
-    --color-base-content: #18181b;
-    --color-primary: #000000;
-    --color-primary-content: #ffffff;
-    --color-secondary: #3b82f6;
-    --color-secondary-content: #ffffff;
-    --color-accent: #ef4444;
-    --color-accent-content: #ffffff;
-    --color-neutral: #71717a;
-    --color-neutral-content: #ffffff;
-    --color-info: #3b82f6;
-    --color-info-content: #ffffff;
-    --color-success: #10b981;
-    --color-success-content: #ffffff;
-    --color-warning: #f59e0b;
-    --color-warning-content: #000000;
-    --color-error: #ef4444;
-    --color-error-content: #ffffff;
-    --radius-selector: 0rem;
-    --radius-field: 0rem;
-    --radius-box: 0rem;
-    --size-selector: 0.125rem;
-    --size-field: 0.125rem;
-    --border: 1px;
-    --depth: 0;
-    --noise: 0;
+
+@theme {
+    --font-primary:
+        "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+        sans-serif;
+    --font-mono:
+        "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono",
+        Consolas, "Courier New", monospace;
+
+    --color-technical-black: #000000;
+    --color-technical-blue: #3b82f6;
+    --color-technical-red: #ef4444;
+    --color-technical-gray: #71717a;
+    --color-light-bg: #fafafa;
+    --color-light-surface: #ffffff;
+    --color-border: #e4e4e7;
+    --animation-pulse-technical: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+    --color-primary: var(--color-technical-black);
+    --color-secondary: var(--color-technical-blue);
+    --color-neutral: var(--color-technical-gray);
+}
+
+@utility technical-grid {
+    background-size: 20px 20px;
+    background-image:
+        linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+}
+
+@utility technical-border {
+    border-width: 1px;
+    border-color: currentColor;
+    border-style: solid;
 }
